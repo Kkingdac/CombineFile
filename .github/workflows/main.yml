@@ -48,3 +48,15 @@ jobs:
           asset_path: ./dist/Combiner-${{ github.ref_name }}.exe
           asset_name: Combiner-${{ github.ref_name }}.exe
           asset_content_type: application/octet-stream
+      - name: Upload Release To SharePoint
+        id: upload_release_to_sharepoint
+        run: |
+          python UploadFileToSP.py
+        env:
+          FILEPATH: ./dist/Combiner-${{ github.ref_name }}.exe
+          FILENAME: Combiner-${{ github.ref_name }}.exe
+          SP_URL: ${{ vars.SP_URL }}
+          SP_USERNAME: ${{ vars.SP_USERNAME }}
+          SP_PASSWORD: ${{ secrets.SP_PASSWORD }}
+          SP_SITE: ${{ vars.SP_SITE }}
+          SP_FOLDER: ${{ vars.SP_FOLDER }}
